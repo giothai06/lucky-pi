@@ -7,8 +7,8 @@
   <style>
     body {
       background-color: #2a003f;
-      font-family: sans-serif;
       color: white;
+      font-family: sans-serif;
       text-align: center;
       padding: 20px;
     }
@@ -26,7 +26,7 @@
     .slot {
       display: flex;
       justify-content: center;
-      gap: 10px;
+      gap: 15px;
       margin-bottom: 20px;
     }
 
@@ -60,34 +60,47 @@
 </head>
 <body>
   <h1>🎰 Lucky Pi</h1>
-  <div class="balance" id="balance"></div>
+  <div class="balance">
+    <span id="balance">1000 Pi</span>
+  </div>
 
-  <div class="slot" id="slot">
+  <div class="slot">
     <div>🍀</div>
     <div>💎</div>
     <div>🔥</div>
-    <div>₿</div>
-    <div>🏛️</div>
   </div>
 
   <div class="buttons">
-    <button onclick="spin()">SPIN</button>
-    <button onclick="maxBet()">MAX BET</button>
+    <button id="spin">SPIN</button>
+    <button id="maxbet">MAX BET</button>
   </div>
 
-  <select onchange="changeLang(this.value)">
+  <select id="language" onchange="changeLanguage(this.value)">
     <option value="fr">Français</option>
     <option value="en">English</option>
   </select>
 
-  <audio id="sound" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
-
+  <script src="script.js"></script>
   <script>
-    const symbols = ["🍀", "💎", "🔥", "₿", "🏛️", "7️⃣", "⭐", "🎰", "🪙"];
-    const lang = {
+    const translations = {
       fr: {
         spin: "SPIN",
-        max: "MAX BET",
+        maxbet: "MAX BET",
         balance: "Solde : ",
       },
-      en
+      en: {
+        spin: "SPIN",
+        maxbet: "MAX BET",
+        balance: "Balance: ",
+      }
+    };
+
+    function changeLanguage(lang) {
+      document.getElementById("spin").innerText = translations[lang].spin;
+      document.getElementById("maxbet").innerText = translations[lang].maxbet;
+      const balance = document.getElementById("balance").innerText.split(" ")[0];
+      document.getElementById("balance").innerText = `${balance} Pi`;
+    }
+  </script>
+</body>
+</html>
