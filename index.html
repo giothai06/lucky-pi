@@ -1,81 +1,117 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lucky Pi</title>
   <style>
     body {
       background-color: #2a003f;
       color: white;
-      font-family: sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       margin: 0;
       padding: 0;
     }
-    header {
-      padding: 20px;
-      font-size: 2em;
+    h1 {
+      font-size: 2.5em;
+      margin-top: 20px;
     }
     .balance {
-      font-size: 1em;
-      margin-top: 10px;
+      font-size: 1.2em;
+      margin-bottom: 20px;
     }
-    .slot-machine {
+    .slot {
       display: flex;
       justify-content: center;
-      margin: 30px auto;
       gap: 10px;
+      margin-bottom: 20px;
     }
-    .reel {
-      width: 70px;
-      height: 70px;
-      background: #fff;
+    .slot div {
+      background-color: white;
       border-radius: 10px;
-      color: #000;
+      padding: 20px;
       font-size: 2em;
+      width: 60px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 10px #000;
     }
-    .controls {
-      margin: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 1em;
-      background-color: #ffcc00;
+    .buttons button {
+      background-color: gold;
       border: none;
       border-radius: 10px;
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1em;
+      font-weight: bold;
       cursor: pointer;
-      margin: 5px;
     }
     select {
       margin-top: 10px;
+      font-size: 1em;
     }
   </style>
 </head>
 <body>
-  <header>🎰 Lucky Pi</header>
-  <div class="balance">Balance : <strong>1 000 Pi</strong></div>
-
-  <div class="slot-machine">
-    <div class="reel">🍀</div>
-    <div class="reel">💎</div>
-    <div class="reel">🔥</div>
-    <div class="reel">₿</div>
-    <div class="reel">🪙</div>
+  <h1><span style="font-size:1.2em">🎰</span> Lucky Pi</h1>
+  <div class="balance">Balance : <span id="balance">1 000</span> Pi</div>
+  <div class="slot" id="slots">
+    <div>🍀</div>
+    <div>💎</div>
+    <div>🔥</div>
+    <div>₿</div>
+    <div>🪙</div>
   </div>
-
-  <div class="controls">
-    <button>SPIN</button>
-    <button>MAX BET</button>
-    <br />
-    <select>
-      <option value="fr">Français</option>
-      <option value="en">English</option>
-    </select>
+  <div class="buttons">
+    <button onclick="spin()">SPIN</button>
+    <button onclick="maxBet()">MAX BET</button>
   </div>
+  <select id="language" onchange="setLanguage(this.value)">
+    <option value="fr">Français</option>
+    <option value="en">English</option>
+  </select>
+
+  <script>
+    const symbols = ['🍀', '💎', '🔥', '₿', '🪙', '7️⃣', '🎰', 'BAR', 'WILD', 'BONUS'];
+    const balanceEl = document.getElementById('balance');
+    let balance = 1000;
+    let lang = 'fr';
+
+    const texts = {
+      fr: { spin: "SPIN", max: "MAX BET", balance: "Balance : " },
+      en: { spin: "SPIN", max: "MAX BET", balance: "Balance: " }
+    };
+
+    function spin() {
+      const slotDivs = document.querySelectorAll('#slots div');
+      slotDivs.forEach(div => {
+        const random = Math.floor(Math.random() * symbols.length);
+        div.textContent = symbols[random];
+      });
+      balance -= 10;
+      balanceEl.textContent = balance.toLocaleString();
+    }
+
+    function maxBet() {
+      const slotDivs = document.querySelectorAll('#slots div');
+      slotDivs.forEach(div => {
+        const random = Math.floor(Math.random() * symbols.length);
+        div.textContent = symbols[random];
+      });
+      balance -= 100;
+      balanceEl.textContent = balance.toLocaleString();
+    }
+
+    function setLanguage(l) {
+      lang = l;
+      document.querySelector(".buttons button:nth-child(1)").textContent = texts[l].spin;
+      document.querySelector(".buttons button:nth-child(2)").textContent = texts[l].max;
+      document.querySelector(".balance").firstChild.textContent = texts[l].balance;
+    }
+  </script>
 </body>
 </html>
+
+
