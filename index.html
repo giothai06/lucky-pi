@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lucky Pi 🎰</title>
   <style>
     body {
@@ -32,9 +32,9 @@
 
     .slot div {
       background-color: white;
+      border-radius: 10px;
       width: 60px;
       height: 60px;
-      border-radius: 10px;
       font-size: 2em;
       display: flex;
       align-items: center;
@@ -44,33 +44,30 @@
     .buttons button {
       background-color: gold;
       border: none;
+      border-radius: 10px;
       padding: 10px 20px;
       margin: 10px;
       font-size: 1em;
       font-weight: bold;
       cursor: pointer;
-      border-radius: 10px;
     }
 
     select {
+      margin-top: 10px;
       font-size: 1em;
-      margin-top: 20px;
-    }
-
-    .result {
-      margin-top: 15px;
-      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <h1>🎰 Lucky Pi</h1>
-  <div class="balance">Balance : <span id="balance">1 000</span> Pi</div>
+  <div class="balance" id="balance"></div>
 
-  <div class="slot">
-    <div id="slot1">🍀</div>
-    <div id="slot2">💎</div>
-    <div id="slot3">🔥</div>
+  <div class="slot" id="slot">
+    <div>🍀</div>
+    <div>💎</div>
+    <div>🔥</div>
+    <div>₿</div>
+    <div>🏛️</div>
   </div>
 
   <div class="buttons">
@@ -78,65 +75,19 @@
     <button onclick="maxBet()">MAX BET</button>
   </div>
 
-  <select id="lang" onchange="changeLanguage()">
+  <select onchange="changeLang(this.value)">
     <option value="fr">Français</option>
     <option value="en">English</option>
   </select>
 
-  <div class="result" id="result"></div>
+  <audio id="sound" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
 
   <script>
-    const symbols = ["🍀", "💎", "🔥", "₿", "🏛️", "7️⃣", "BAR", "WILD"];
-    let balance = 1000;
-    let currentLang = "fr";
-
-    function getRandomSymbol() {
-      return symbols[Math.floor(Math.random() * symbols.length)];
-    }
-
-    function spin() {
-      if (balance < 10) {
-        alert(currentLang === "fr" ? "Solde insuffisant." : "Not enough balance.");
-        return;
-      }
-
-      balance -= 10;
-      document.getElementById("balance").textContent = balance;
-
-      const s1 = getRandomSymbol();
-      const s2 = getRandomSymbol();
-      const s3 = getRandomSymbol();
-
-      document.getElementById("slot1").textContent = s1;
-      document.getElementById("slot2").textContent = s2;
-      document.getElementById("slot3").textContent = s3;
-
-      if (s1 === s2 && s2 === s3) {
-        balance += 100;
-        document.getElementById("balance").textContent = balance;
-        document.getElementById("result").textContent = currentLang === "fr" ? "Jackpot ! +100 Pi 🎉" : "Jackpot! +100 Pi 🎉";
-      } else if (s1 === s2 || s2 === s3 || s1 === s3) {
-        balance += 20;
-        document.getElementById("balance").textContent = balance;
-        document.getElementById("result").textContent = currentLang === "fr" ? "+20 Pi 👌" : "+20 Pi 👌";
-      } else {
-        document.getElementById("result").textContent = currentLang === "fr" ? "Perdu ! 😢" : "Lost! 😢";
-      }
-    }
-
-    function maxBet() {
-      spin();
-      spin();
-      spin();
-    }
-
-    function changeLanguage() {
-      currentLang = document.getElementById("lang").value;
-      document.querySelector("h1").textContent = currentLang === "fr" ? "🎰 Lucky Pi" : "🎰 Lucky Pi";
-      document.querySelector(".balance").textContent = currentLang === "fr" ? "Balance : " + balance + " Pi" : "Balance: " + balance + " Pi";
-      document.querySelector(".buttons button").textContent = currentLang === "fr" ? "SPIN" : "SPIN";
-      document.querySelectorAll(".buttons button")[1].textContent = currentLang === "fr" ? "MAX BET" : "MAX BET";
-    }
-  </script>
-</body>
-</html>
+    const symbols = ["🍀", "💎", "🔥", "₿", "🏛️", "7️⃣", "⭐", "🎰", "🪙"];
+    const lang = {
+      fr: {
+        spin: "SPIN",
+        max: "MAX BET",
+        balance: "Solde : ",
+      },
+      en
