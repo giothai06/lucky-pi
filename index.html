@@ -4,9 +4,78 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lucky Pi</title>
+  <style>
+    body {
+      background-color: #2a003f;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      padding: 20px;
+      font-size: 2em;
+    }
+    .balance {
+      font-size: 1em;
+      margin-top: 10px;
+    }
+    .slot-machine {
+      display: flex;
+      justify-content: center;
+      margin: 30px auto;
+      gap: 10px;
+    }
+    .reel {
+      width: 70px;
+      height: 70px;
+      background: #fff;
+      border-radius: 10px;
+      color: #000;
+      font-size: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px #000;
+    }
+    .controls {
+      margin: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    select {
+      margin-top: 10px;
+    }
+  </style>
 </head>
-<body style="background-color: #2a003f; color: white; text-align: center;">
-  <h1>🎰 Lucky Pi</h1>
-  <p>Votre jeu arrive bientôt !</p>
+<body>
+  <header>🎰 Lucky Pi</header>
+  <div class="balance">Balance : <strong>1 000 Pi</strong></div>
+
+  <div class="slot-machine">
+    <div class="reel">🍀</div>
+    <div class="reel">💎</div>
+    <div class="reel">🔥</div>
+    <div class="reel">₿</div>
+    <div class="reel">🪙</div>
+  </div>
+
+  <div class="controls">
+    <button>SPIN</button>
+    <button>MAX BET</button>
+    <br />
+    <select>
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+    </select>
+  </div>
 </body>
 </html>
